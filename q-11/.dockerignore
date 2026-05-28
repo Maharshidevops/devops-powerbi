@@ -1,0 +1,23 @@
+# Never send these into the Docker build context.
+# Excluding node_modules means Docker doesn't copy ~200-400 MB
+# of local packages before running npm ci — build context is tiny
+# and the layer cache works correctly.
+
+node_modules
+.git
+.gitignore
+.github
+*.md
+.env
+.env.*
+coverage
+.nyc_output
+dist
+build
+.DS_Store
+*.log
+*.test.*
+__tests__
+cypress
+.storybook
+storybook-static

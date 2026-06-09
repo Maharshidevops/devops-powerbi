@@ -1,0 +1,10 @@
+sale_id,sale_date,store,product,quantity,unit_price,refund_amount
+1001,2026-06-01,Ahmedabad,Keyboard,2,1200.00,0
+1002,2026-06-01,Ahmedabad,Mouse,5,450.00,0
+1003,2026-06-02,Surat,Monitor,1,10500.00,0
+1004,2026-06-02,Surat,Keyboard,1,1200.00,0
+1005,2026-06-03,Vadodara,Mouse,3,450.00,450.00
+1006,2026-06-03,Vadodara,Laptop Stand,2,1800.00,0
+1007,2026-06-04,Ahmedabad,Monitor,2,10500.00,0
+1008,2026-06-04,Surat,USB-C Cable,10,250.00,0
+

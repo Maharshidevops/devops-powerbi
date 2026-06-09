@@ -1,0 +1,52 @@
+stages:
+  - lint
+  - test
+  - package
+  - deploy_dev
+
+variables:
+  PYTHON_VERSION: "3.11"
+
+python_validation:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - python etl/validate_sales.py data/sample_sales.csv
+
+node_syntax_check:
+  stage: lint
+  image: node:20-alpine
+  before_script:
+    - cd api
+    - npm ci
+  script:
+    - npm run lint
+
+sql_static_check:
+  stage: lint
+  image: alpine:3.20
+  script:
+    - test -s sql/01_schema.sql
+    - test -s sql/02_procedures.sql
+    - test -s sql/03_views.sql
+
+docker_compose_config:
+  stage: package
+  image: docker:27-cli
+  services:
+    - docker:27-dind
+  script:
+    - docker compose config
+
+deploy_dev:
+  stage: deploy_dev
+  image: alpine:3.20
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+  script:
+    - echo "Deploy to dev EC2 using SSH, SSM, or GitLab Runner on the host."
+    - echo "Keep secrets in GitLab CI/CD variables or AWS SSM Parameter Store."
+
